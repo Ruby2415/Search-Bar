@@ -1,4 +1,5 @@
 import type { ComponentPropsWithoutRef } from 'react';
+import { usePage } from '@inertiajs/react';
 import {
     SidebarGroup,
     SidebarGroupContent,
@@ -16,6 +17,12 @@ export function NavFooter({
 }: ComponentPropsWithoutRef<typeof SidebarGroup> & {
     items: NavItem[];
 }) {
+    const { auth } = usePage().props;
+
+    const visibleItems = items.filter(
+        (item) => !item.requiresAuth || Boolean(auth.user),
+    )
+
     return (
         <SidebarGroup
             {...props}
@@ -23,7 +30,7 @@ export function NavFooter({
         >
             <SidebarGroupContent>
                 <SidebarMenu>
-                    {items.map((item) => (
+                    {visibleItems.map((item) => (
                         <SidebarMenuItem key={item.title}>
                             <SidebarMenuButton
                                 asChild

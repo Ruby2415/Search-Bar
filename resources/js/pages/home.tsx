@@ -2,8 +2,9 @@ import { Head } from '@inertiajs/react';
 import { home, register } from '@/routes';
 
 export default function Home() {
-
-
+    return (
+        <Head title="Home"/>
+    );
 }
 
 Home.layout = {

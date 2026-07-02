@@ -1,5 +1,5 @@
-import { usePage } from '@inertiajs/react';
-import { ChevronsUpDown } from 'lucide-react';
+import { usePage, Link } from '@inertiajs/react';
+import { ChevronsUpDown, LogIn } from 'lucide-react';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -11,6 +11,7 @@ import {
     SidebarMenuItem,
     useSidebar,
 } from '@/components/ui/sidebar';
+import { login } from '@/routes';
 import { UserInfo } from '@/components/user-info';
 import { UserMenuContent } from '@/components/user-menu-content';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -21,7 +22,21 @@ export function NavUser() {
     const isMobile = useIsMobile();
 
     if (!auth.user) {
-        return null;
+        return (
+            <SidebarMenu>
+                <SidebarMenuItem>
+                    <SidebarMenuButton className="p-0">
+                        <Link
+                            href={login()}
+                            className="flex h-full w-full items-center gap-2 rounded-md border border-input bg-background px-3 py-2 text-sm font-medium text-primary transition hover:bg-primary/5"
+                        >
+                            <LogIn className="size-4" />
+                            Log in
+                        </Link>
+                    </SidebarMenuButton>
+                </SidebarMenuItem>
+            </SidebarMenu>
+        );
     }
 
     return (
