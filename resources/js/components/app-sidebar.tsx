@@ -4,6 +4,7 @@ import AppLogo from '@/components/app-logo';
 import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
+import { QuickSearchBar } from '@/components/quick-search-bar';
 import {
     Sidebar,
     SidebarContent,
@@ -12,14 +13,16 @@ import {
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
+    useSidebar,
 } from '@/components/ui/sidebar';
-import { dashboard, home } from '@/routes';
+import { search, home } from '@/routes';
 import type { NavItem } from '@/types';
+import { ThemeChange } from '@/components/theme-change';
 
 const mainNavItems: NavItem[] = [
     {
         title: 'Advanced Search',
-        href: dashboard(),
+        href: search(),
         icon: SearchCode,
     },
 ];
@@ -34,6 +37,7 @@ const footerNavItems: NavItem[] = [
 ];
 
 export function AppSidebar() {
+    const { open } = useSidebar();
     return (
         <Sidebar collapsible="icon" variant="inset">
             <SidebarHeader>
@@ -45,13 +49,11 @@ export function AppSidebar() {
                             </Link>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
-                    <SidebarMenuItem>
-                        <input
-                            type="search"
-                            placeholder="Search..."
-                            className="w-full rounded-lg border px-3 py-2"
-                        />
-                    </SidebarMenuItem>
+                    {open && (
+                        <SidebarMenuItem>
+                            <QuickSearchBar />
+                        </SidebarMenuItem>
+                    )}
                 </SidebarMenu>
             </SidebarHeader>
 
@@ -61,6 +63,7 @@ export function AppSidebar() {
 
             <SidebarFooter>
                 <NavFooter items={footerNavItems} className="mt-auto" />
+                {open && (<ThemeChange />)}
                 <NavUser />
             </SidebarFooter>
         </Sidebar>

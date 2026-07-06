@@ -1,5 +1,5 @@
 import { Head } from '@inertiajs/react';
-import { home, register } from '@/routes';
+import { home } from '@/routes';
 
 export default function Home() {
     return (
